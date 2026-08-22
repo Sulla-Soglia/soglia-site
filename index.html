@@ -44,31 +44,34 @@
 
   .frame {
     max-width: 1080px; margin: 0 auto;
-    padding: 4.5rem 2rem 0;
+    padding: 3rem 2rem 0;
   }
 
-  /* ---- Hero: the animation is the argument ---- */
+  /* ---- Hero: the animation IS the first screen.
+     Its ground (#97697A) becomes the section ground, so the square
+     dissolves and the page itself is the painting. ---- */
   .hero {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 2.5rem;
-    align-items: start;
-    margin-bottom: 4rem;
-  }
-  .hero-anim {
     position: relative;
-    width: 100%;
-    max-width: 640px;
-    aspect-ratio: 1;
+    height: 100vh;
+    background: #97697A;
     cursor: pointer;
   }
-  .hero-anim video {
-    width: 100%; height: 100%;
-    display: block;
-    object-fit: cover;
+  .hero-anim {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
   }
+  .hero-anim video {
+    height: 100%;
+    max-width: 100%;
+    aspect-ratio: 1;
+    display: block;
+    object-fit: contain;
+  }
+  .hero { transition: background 1200ms; }
+  .hero.ended { background: var(--klein); }
+
   .replay {
-    position: absolute; left: 50%; bottom: 1.2rem;
+    position: absolute; left: 50%; bottom: 2rem;
     transform: translateX(-50%);
     font-family: var(--font); font-style: italic;
     font-size: 1rem; letter-spacing: 0.15em;
@@ -77,23 +80,29 @@
     opacity: 0; transition: opacity 900ms;
     pointer-events: none;
   }
-  .hero-anim.ended .replay { opacity: 1; pointer-events: auto; }
+  .hero.ended .replay { opacity: 1; pointer-events: auto; }
   .replay:hover { color: var(--paper); }
 
+  /* masthead floats on the painting, top right; size unchanged */
   .masthead {
+    position: absolute; top: 3rem; right: 3rem; z-index: 5;
     text-align: right;
-    padding-top: 0.5rem;
+    transition: color 1200ms;
   }
   .masthead h1 {
     font-size: 2.6rem; font-weight: 500; font-style: italic;
     line-height: 1.1; letter-spacing: 0.02em;
     margin: 0 0 0.6rem; color: var(--ink);
+    transition: color 1200ms;
   }
   .masthead .sub {
     font-size: 1.05rem; font-style: italic;
     margin: 0; color: var(--red);
     letter-spacing: 0.06em;
+    transition: color 1200ms;
   }
+  .hero.ended .masthead h1 { color: var(--paper); }
+  .hero.ended .masthead .sub { color: #C9A8B8; }
 
   /* ---- Latest piece: the entrance ---- */
   .latest {
@@ -237,10 +246,10 @@
   }
 
   @media (max-width: 820px) {
-    .frame { padding: 4rem 1.2rem 0; }
-    .hero { grid-template-columns: 1fr; gap: 1.5rem; }
-    .masthead { text-align: left; padding-top: 0; }
-    .masthead h1 { font-size: 2rem; display: inline; margin-right: 0.6em; }
+    .frame { padding: 2.5rem 1.2rem 0; }
+    .hero { height: 100svh; }
+    .masthead { top: 2.2rem; right: 1.4rem; }
+    .masthead h1 { font-size: 2rem; }
     .corpo { grid-template-columns: 1fr; gap: 2.5rem; }
     .rail { position: static; }
     .rail-list { flex-direction: row; flex-wrap: wrap; gap: 1rem 1.8rem; }
@@ -252,20 +261,20 @@
 
   <div class="daymark" id="daymark"><span class="moon">🌑</span>Day <span id="daycount">—</span></div>
 
-  <main class="frame">
+  <header class="hero" id="heroAnim" title="rejouer">
+    <div class="hero-anim">
+      <video id="heroVideo" muted playsinline autoplay preload="auto" poster="assets/poster_f04.png?v=2">
+        <source src="assets/soglia_anim_v1.mp4?v=2" type="video/mp4" />
+      </video>
+    </div>
+    <div class="masthead">
+      <h1>Sulla<br />Soglia</h1>
+      <p class="sub">on the threshold</p>
+    </div>
+    <button class="replay" id="replayBtn">rejouer · 重播</button>
+  </header>
 
-    <header class="hero">
-      <div class="hero-anim" id="heroAnim" title="rejouer">
-        <video id="heroVideo" muted playsinline autoplay preload="auto" poster="assets/poster_f04.png">
-          <source src="assets/soglia_anim_v1.mp4" type="video/mp4" />
-        </video>
-        <button class="replay" id="replayBtn">rejouer · 重播</button>
-      </div>
-      <div class="masthead">
-        <h1>Sulla<br />Soglia</h1>
-        <p class="sub">on the threshold</p>
-      </div>
-    </header>
+  <main class="frame">
 
     <section class="latest">
       <div class="latest-label">Latest — the entrance</div>
