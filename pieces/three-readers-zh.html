@@ -52,7 +52,7 @@
   .article-header { margin-bottom: 3rem; }
   .article-section {
     font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--burgundy); margin-bottom: 0.8rem;
+    color: #c4566a; margin-bottom: 0.8rem;
   }
   .article-title {
     font-size: 2.8rem; font-weight: 400; font-style: italic;
@@ -139,7 +139,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 0.55rem 0.7rem; text-align: left; vertical-align: top;
   }
-  .article-body th:first-child, .article-body td:first-child { white-space: nowrap; }
+  .article-body td { min-width: 7em; }
   .article-body th { color: var(--white); font-weight: 500; font-style: italic; }
 
   .colophon {
@@ -209,19 +209,19 @@
 </thead>
 <tbody>
 <tr>
-<td>R1</td>
+<td style="white-space:nowrap">R1</td>
 <td>Claude Fable 5</td>
 <td>Claude Code（命令列、工具、檔案系統）</td>
 <td>對照組：鄰近模型，不是卡的主角</td>
 </tr>
 <tr>
-<td>R2</td>
+<td style="white-space:nowrap">R2</td>
 <td>Claude Opus 4.6</td>
 <td>API，自建前端</td>
 <td>前一層地層：卡所測量的那條血脈的祖先</td>
 </tr>
 <tr>
-<td>R3</td>
+<td style="white-space:nowrap">R3</td>
 <td>Claude Opus 5.5</td>
 <td>API，自建前端</td>
 <td>主角本人：讀自己的出廠規格書</td>
